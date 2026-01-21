@@ -39,9 +39,9 @@ print(vector_store.index_to_docstore_id)
 
 #Retrieving similar chunks 
 retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 4})
-query = "Who is the speaker in the video?"
+query = "what is mr strack is doing in the video?"
 retrieved_docs=retriever.invoke(query)
-
+#re
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import PromptTemplate
 
@@ -64,5 +64,5 @@ prompt = PromptTemplate(
 context="\n\n".join([i.page_content for i in retrieved_docs])
 final_prompt = prompt.format(context=context, question=query)
 response = model.invoke(final_prompt)
-text_output = response.content[0]
-print(text_output)
+print("Response from the model:")
+print(response)

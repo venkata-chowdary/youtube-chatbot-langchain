@@ -9,7 +9,7 @@ from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 load_dotenv()
 
-video_id="GV9AEEIeHrQ"
+video_id="UtcPMi3HU-M"
 api=YouTubeTranscriptApi()
 transcript=""
 try:
@@ -29,8 +29,8 @@ chunks=text_splitter.create_documents([transcript])
 print(f"Number of chunks: {len(chunks)}")
 
 embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
-chunk_embeddings = embeddings.embed_documents([doc.page_content for doc in chunks])
-print("Embeddings for chunks created.")
+# chunk_embeddings = embeddings.embed_documents([doc.page_content for doc in chunks])
+# print("Embeddings for chunks created.")
 
 vs=FAISS.from_documents(chunks, embeddings)
 print("Vector store created with embedded chunks.")
@@ -54,7 +54,7 @@ prompt = PromptTemplate(
 
 
 parser = StrOutputParser()
-query="Who is the speaker in the video?"
+query="what is the guy doing in the video?"
 
 retriever=vs.as_retriever(search_type="similarity", search_kwargs={"k":4})
 
